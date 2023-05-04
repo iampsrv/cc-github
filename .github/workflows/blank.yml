@@ -22,5 +22,5 @@ jobs:
         run: |
           ls -ltr
           git clone — mirror https://github.com/iampsrv/cc-github.git github-cc
-          cd awscommit-repo
+          cd github-cc
           git push https://git-codecommit.us-east-1.amazonaws.com/v1/repos/github-cc — tags
