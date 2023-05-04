@@ -21,6 +21,8 @@ jobs:
       - name: View Files
         run: |
           ls -ltr
-          git clone — mirror https://github.com/iampsrv/cc-github.git github-cc
-          cd github-cc
-          git push https://git-codecommit.us-east-1.amazonaws.com/v1/repos/github-cc — tags
+      - name: Git push
+        run: |
+          git remote add origin https://git-codecommit.us-east-1.amazonaws.com/v1/repos/github-cc
+          git remote -v
+          git push origin main
