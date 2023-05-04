@@ -24,4 +24,5 @@ jobs:
       - name: Git push
         run: |
           git remote add codecommit https://git-codecommit.us-east-1.amazonaws.com/v1/repos/github-cc
+          git remote -v
           git push codecommit HEAD:refs/heads/master
