@@ -1,4 +1,4 @@
-name: Sync with CodeCommit
+name: sync up to codecommit
 
 on:
   push:
@@ -6,25 +6,23 @@ on:
       - master
 
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Verify AWS CLI installation
-      run: aws --version
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Configure AWS credentials
-      run: |
-        mkdir ~/.aws
-        echo "[default]" > ~/.aws/credentials
-        echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/credentials
-        echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/credentials
-        echo "region=us-east-1" >> ~/.aws/credentials
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1.0.3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
 
-    - name: Sync with CodeCommit
-      run: |
-        git remote add codecommit https://git-codecommit.us-east-1.amazonaws.com/v1/repos/github-cc
-        git push codecommit HEAD:refs/heads/master
+      - name: Sync up to CodeCommit
+        uses: tsgit18/sync-up-to-codecommit-action@v1
+        with:
+          repository_name: github-cc
+          aws_region: us-east-1
