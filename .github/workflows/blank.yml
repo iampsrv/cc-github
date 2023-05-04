@@ -23,6 +23,6 @@ jobs:
           ls -ltr
       - name: Git push
         run: |
-          git remote add origin https://git-codecommit.us-east-1.amazonaws.com/v1/repos/github-cc
+          git remote add codecommit https://git-codecommit.us-east-1.amazonaws.com/v1/repos/github-cc
           git remote -v
-          git push origin main
+          git push codecommit main
